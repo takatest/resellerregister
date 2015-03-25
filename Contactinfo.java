@@ -21,7 +21,9 @@ public class Contactinfo {
 		    driver.findElement(By.name("registrant_phone")).clear();
 		    driver.findElement(By.name("registrant_phone")).sendKeys("+61.123456778");
 		    driver.findElement(By.name("registrant_address_line1")).clear();
-		    driver.findElement(By.name("registrant_address_line1")).sendKeys("269 la trobe st");
+		    driver.findElement(By.name("registrant_address_line1")).sendKeys("Level 3");
+		    driver.findElement(By.name("registrant_address_line2")).clear();
+		    driver.findElement(By.name("registrant_address_line2")).sendKeys("469 La Trobe St");
 		    driver.findElement(By.name("registrant_address_city")).clear();
 		    driver.findElement(By.name("registrant_address_city")).sendKeys("Melbourne");
 		    driver.findElement(By.name("registrant_address_stateprovince")).clear();

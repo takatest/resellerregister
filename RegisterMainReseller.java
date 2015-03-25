@@ -25,21 +25,31 @@ public class RegisterMainReseller {
 		private String 				baseUrl = "https://reseller.php5.mit/";	//URL stage
 		private String 				reseller = "test";						// reseller ID
 		private String				resellerpw = "test";					// reseller password
-		private static int			domain_num = 2;			
-		private static String[] 	domain = {"takatestjavatesta2","takarenewreseller","takatestb5","takatestb10"};// domain name
-		private static String []	domainspace = {"sydney","net.au","net","com","net.au"};	// domain space
+		private static int			domain_num = 1;			
+//		private static String[] 	domain = {"remindr30r20150319104235","takarenewreseller","takatestb5","takatestb10"};// domain name
+		private static String []	domainspace = {"biz","net","bike","camera","lighting","club"};	// domain space
 		private int 				year = 2;											// year	
 		private static String 		years;
 		private static	String 		today;
 		private static int 			unique_num;
 		
+		// DB
+		// JDBC driver name and database URL
+		static final String 		JDBC_DRIVER = "oracle.jdbc.OracleDriver";  
+		static final String 		DB_URL = "jdbc:oracle:thin:@intdev-ora-new.mit:1688:CSPIN";
+		//  Database credentials
+	   static final String 			USER = "mit_spin";
+	   static final String			 PASS = "mit_spin2000";
+	   private int					status = 20;
+	   
 		private logintoResellerPage	logintoResellerPage = new logintoResellerPage();	// login to reseller
 		private SearchRegister		SearchRegister		= new SearchRegister();			// search domain
 		private	ResultPage			ResultPage			= new ResultPage();				// Result page
 		private ClickTab			ClickTab			= new ClickTab();				// change Tab
 		private ContactDomainSpace	ContactDomainSpace	= new ContactDomainSpace();		// contact update
 		private TaskBar				TaskBar				= new TaskBar();				// go back to search page
-
+		private databaseCheck		databaseCheck		= new databaseCheck();			// DB check
+	   
 		@BeforeTest
 		public void BeforeTest() {
 			driver = new FirefoxDriver();
@@ -86,14 +96,19 @@ public class RegisterMainReseller {
 		
 			System.out.println((count+1)+"-"+domain+" - "+years);
 		    
-		    ClickTab.tab(driver, domain);						// click Tab
+		    ClickTab.tab(driver, domain);								// click Tab
 		    
-		    SearchRegister.search(driver, domain);				// search domain
+		    SearchRegister.search(driver, domain);						// search domain
 		    
-		    ContactDomainSpace.update(driver, domain, years);
+		    ContactDomainSpace.update(driver, domain, years);			// enter contact information
 		    
-		    ResultPage.regresult(driver, domain);				// result page
-		    TaskBar.register(driver);							// go back to 
+		    ResultPage.regresult(driver, domain);						// result page
+		    TaskBar.register(driver);									// go back to 
+		    
+		    // DBA check register status should be 20
+		    databaseCheck.register(domain, DB_URL, USER, PASS, status);	// DB check 
+		    
+		    
 		    System.out.println("");
 		}
 		
